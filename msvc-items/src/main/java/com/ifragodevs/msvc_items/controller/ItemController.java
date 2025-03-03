@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.http.HttpStatus;
 
+import com.ifragodevs.libs_msvc_commons.entities.Product;
 import com.ifragodevs.msvc_items.models.Item;
-import com.ifragodevs.msvc_items.models.Product;
 import com.ifragodevs.msvc_items.services.ItemService;
 
 @RestController

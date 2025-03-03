@@ -21,6 +21,7 @@
 		<module>msvc-items</module>
 		<module>eureka-server</module>
 		<module>msvc-products</module>
+		<module>libs-msvc-commons</module>
 	</modules>
 	
 	<url/>

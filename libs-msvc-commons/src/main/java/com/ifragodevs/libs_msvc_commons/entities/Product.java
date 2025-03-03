@@ -1,4 +1,4 @@
-package com.ifragodevs.msvc_products.entities;
+package com.ifragodevs.libs_msvc_commons.entities;
 
 import java.time.LocalDate;
 
@@ -10,10 +10,11 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Data;
 
-@Entity
 @Data
+@Entity
 @Table(name = "products")
 public class Product {
+
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
