@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 
 import com.ifragodevs.libs_msvc_commons.entities.Product;
@@ -23,6 +25,8 @@ import com.ifragodevs.msvc_items.services.ItemService;
 public class ItemController {
 
 	private final ItemService service;
+	
+	private final Logger logger = LoggerFactory.getLogger(ItemController.class);
 
     public ItemController(ItemService service) {
         this.service = service;
@@ -30,6 +34,7 @@ public class ItemController {
 
     @GetMapping
     public List<Item> list() {
+    	logger.info("Llamada al metodo list del controlador ItemController");
         return service.findAll();
     }
     
@@ -48,6 +53,7 @@ public class ItemController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Product create(@RequestBody Product product) {
+    	logger.info("Creando producto: {}",product);
     	return service.save(product);
     }
     

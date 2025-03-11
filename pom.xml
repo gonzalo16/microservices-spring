@@ -23,6 +23,7 @@
 		<module>msvc-products</module>
 		<module>libs-msvc-commons</module>
 		<module>msvc-users</module>
+		<module>msvc-gateway-server</module>
 	</modules>
 	
 	<url/>
