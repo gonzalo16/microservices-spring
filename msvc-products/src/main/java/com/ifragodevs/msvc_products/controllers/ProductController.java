@@ -1,6 +1,7 @@
 package com.ifragodevs.msvc_products.controllers;
 
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,6 +30,19 @@ public class ProductController {
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<Product> details(@PathVariable Long id) {
+		
+		if(id.equals(10L)) {
+    		throw new IllegalStateException("Producto no encontrado......");
+    	}
+    	
+    	if(id.equals(7L)) {
+    		try {
+				TimeUnit.SECONDS.sleep(5000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+    	}
+		
 		Optional<Product> productOptional = productService.findById(id);
 		if(productOptional.isPresent()) {
 			return ResponseEntity.ok(productOptional.get());

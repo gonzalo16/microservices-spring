@@ -1,5 +1,6 @@
 package com.ifragodevs.msvc_items.controller;
 
+import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.cloud.client.circuitbreaker.CircuitBreakerFactory;
 import org.springframework.http.HttpStatus;
 
 import com.ifragodevs.libs_msvc_commons.entities.Product;
@@ -27,9 +29,12 @@ public class ItemController {
 	private final ItemService service;
 	
 	private final Logger logger = LoggerFactory.getLogger(ItemController.class);
+	
+	private final CircuitBreakerFactory cbFactory;
 
-    public ItemController(ItemService service) {
+    public ItemController(ItemService service, CircuitBreakerFactory cbFactory) {
         this.service = service;
+        this.cbFactory = cbFactory;
     }
 
     @GetMapping
@@ -40,7 +45,22 @@ public class ItemController {
     
     @GetMapping("/{id}")
     public ResponseEntity<?> details(@PathVariable Long id) {
-        Optional<Item> itemOptional = service.findById(id);
+    	
+    	
+    	
+        Optional<Item> itemOptional = cbFactory.create("items").run(() -> service.findById(id), e -> {
+        	logger.info(e.getMessage());
+        	
+        	Product product = new Product();
+        	product.setCreateAt(LocalDate.now());
+        	product.setId(1L);
+        	product.setName("Camara SONY");
+        	product.setPrice(500L);
+        	
+        	return Optional.of(new Item(product,5));
+        }); 
+        
+        
         if(itemOptional.isPresent()){
             return ResponseEntity.ok(itemOptional.get());
         }
