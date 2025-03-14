@@ -37,7 +37,7 @@ public class ProductController {
     	
     	if(id.equals(7L)) {
     		try {
-				TimeUnit.SECONDS.sleep(5000);
+				TimeUnit.SECONDS.sleep(3L);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}

@@ -23,6 +23,8 @@ import com.ifragodevs.libs_msvc_commons.entities.Product;
 import com.ifragodevs.msvc_items.models.Item;
 import com.ifragodevs.msvc_items.services.ItemService;
 
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+
 @RestController
 public class ItemController {
 
@@ -46,19 +48,32 @@ public class ItemController {
     @GetMapping("/{id}")
     public ResponseEntity<?> details(@PathVariable Long id) {
     	
-    	
-    	
         Optional<Item> itemOptional = cbFactory.create("items").run(() -> service.findById(id), e -> {
-        	logger.info(e.getMessage());
+        	logger.error(e.getMessage());
         	
         	Product product = new Product();
         	product.setCreateAt(LocalDate.now());
+        	product.setName("Camara Sony");
         	product.setId(1L);
-        	product.setName("Camara SONY");
         	product.setPrice(500L);
-        	
         	return Optional.of(new Item(product,5));
-        }); 
+        });
+        
+        
+        if(itemOptional.isPresent()){
+            return ResponseEntity.ok(itemOptional.get());
+        }
+        return ResponseEntity.status(404)
+                .body(Collections.singletonMap(
+                    "message",
+                "No existe el producto en el microservicio msvc-products"));
+    }
+    
+    @CircuitBreaker(name = "items",fallbackMethod = "caminoAlternativo")
+    @GetMapping("/details/{id}")
+    public ResponseEntity<?> details2(@PathVariable Long id) {
+    	
+        Optional<Item> itemOptional = service.findById(id);
         
         
         if(itemOptional.isPresent()){
@@ -87,5 +102,18 @@ public class ItemController {
     @ResponseStatus(HttpStatus.OK)
     public void delete(@PathVariable Long id) {
     	service.delete(id);
+    }
+    
+    
+    //CAMINO ALTERNATIVO
+    public ResponseEntity<?> caminoAlternativo(Throwable e){
+    	logger.error(e.getMessage());
+    	
+    	Product product = new Product();
+    	product.setCreateAt(LocalDate.now());
+    	product.setName("Camara Sony");
+    	product.setId(1L);
+    	product.setPrice(500L);
+    	return ResponseEntity.ok(new Item(product,5));
     }
 }
