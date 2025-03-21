@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ifragodevs.libs_msvc_commons.entities.Product;
+import com.ifragodevs.msvc_products.entities.Product;
 import com.ifragodevs.msvc_products.services.ProductService;
 
 @RestController

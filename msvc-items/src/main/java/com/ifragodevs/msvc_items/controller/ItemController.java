@@ -2,7 +2,9 @@ package com.ifragodevs.msvc_items.controller;
 
 import java.time.LocalDate;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.http.ResponseEntity;
@@ -16,7 +18,11 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.client.circuitbreaker.CircuitBreakerFactory;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 
 import com.ifragodevs.libs_msvc_commons.entities.Product;
@@ -25,6 +31,7 @@ import com.ifragodevs.msvc_items.services.ItemService;
 
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 
+@RefreshScope
 @RestController
 public class ItemController {
 
@@ -32,11 +39,29 @@ public class ItemController {
 	
 	private final Logger logger = LoggerFactory.getLogger(ItemController.class);
 	
+	@Autowired
+	private Environment env;
+	
+	@Value("${configuracion.texto}")
+	private String text;
+	
 	private final CircuitBreakerFactory cbFactory;
 
     public ItemController(ItemService service, CircuitBreakerFactory cbFactory) {
         this.service = service;
         this.cbFactory = cbFactory;
+    }
+    
+    @GetMapping("/getConfigs")
+    public ResponseEntity<?> fetchConfigs(){
+    	Map<String,String> body = new HashMap<>();
+    	body.put("text", this.text);
+    	
+    	if(env.getActiveProfiles().length > 0 && env.getActiveProfiles()[0].equals("dev")) {
+    		body.put("autor.nombre", env.getProperty("configuracion.autor.nombre"));
+    		body.put("autor.email", env.getProperty("configuracion.autor.email"));
+    	}
+    	return ResponseEntity.ok(body);
     }
 
     @GetMapping

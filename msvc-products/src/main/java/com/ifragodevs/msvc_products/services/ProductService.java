@@ -3,7 +3,7 @@ package com.ifragodevs.msvc_products.services;
 import java.util.List;
 import java.util.Optional;
 
-import com.ifragodevs.libs_msvc_commons.entities.Product;
+import com.ifragodevs.msvc_products.entities.Product;
 
 public interface ProductService {
 

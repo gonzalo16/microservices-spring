@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.ifragodevs.libs_msvc_commons.entities.Product;
+import com.ifragodevs.msvc_products.entities.Product;
 import com.ifragodevs.msvc_products.repositories.ProductRepository;
 
 
