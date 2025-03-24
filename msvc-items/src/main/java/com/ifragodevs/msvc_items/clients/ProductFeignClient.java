@@ -6,7 +6,7 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import com.ifragodevs.libs_msvc_commons.entities.Product;
+import com.ifragodevs.msvc_items.models.Product;
 
 @FeignClient(url = "localhost:8001", name = "msvc-products")
 public interface ProductFeignClient {

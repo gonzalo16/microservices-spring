@@ -11,8 +11,8 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
-import com.ifragodevs.libs_msvc_commons.entities.Product;
 import com.ifragodevs.msvc_items.models.Item;
+import com.ifragodevs.msvc_items.models.Product;
 
 @Primary
 @Service

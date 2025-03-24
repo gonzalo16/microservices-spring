@@ -25,8 +25,8 @@ import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 
-import com.ifragodevs.libs_msvc_commons.entities.Product;
 import com.ifragodevs.msvc_items.models.Item;
+import com.ifragodevs.msvc_items.models.Product;
 import com.ifragodevs.msvc_items.services.ItemService;
 
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;

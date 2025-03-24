@@ -3,8 +3,8 @@ package com.ifragodevs.msvc_items.services;
 import java.util.List;
 import java.util.Optional;
 
-import com.ifragodevs.libs_msvc_commons.entities.Product;
 import com.ifragodevs.msvc_items.models.Item;
+import com.ifragodevs.msvc_items.models.Product;
 
 public interface ItemService {
 

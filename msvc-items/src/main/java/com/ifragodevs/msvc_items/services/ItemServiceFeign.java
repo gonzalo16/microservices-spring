@@ -8,9 +8,9 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ifragodevs.libs_msvc_commons.entities.Product;
 import com.ifragodevs.msvc_items.clients.ProductFeignClient;
 import com.ifragodevs.msvc_items.models.Item;
+import com.ifragodevs.msvc_items.models.Product;
 
 import feign.FeignException;
 
