@@ -45,3 +45,8 @@ spring:
       - Path=/api/items/**
       filters:
       - StripPrefix=2
+    - id: msvc-oauth
+      uri: lb://msvc-oauth
+      predicates:
+      - Path=/api/security/**
+      - StripPrefix=2

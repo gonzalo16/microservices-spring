@@ -24,6 +24,7 @@
 		<module>libs-msvc-commons</module>
 		<module>msvc-users</module>
 		<module>msvc-gateway-server</module>
+		<module>msvc-oauth</module>
 	</modules>
 	
 	<url/>
