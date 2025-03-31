@@ -1,3 +1,4 @@
+##Trazabilidad configuracion resilience4j
 resilience4j:
   circuitbreaker:
     configs:
@@ -19,7 +20,29 @@ resilience4j:
       products:
        base-config: defecto
 
+##Seguridad con oauth2 configuracion
 spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${IP_ADDR:http://127.0.0.1:9100}
+      client:
+        registration:
+          client-app:
+            provider: spring
+            client-id: gateway-app
+            client-secret: 12345
+            authorization-grant-type: authorization_code
+            redirect-uri: http://127.0.0.1:8090/authorized
+            scope:
+            - openid
+            - profile
+            client-name: client-app
+        provider:
+          spring:
+            issuer-uri: ${IP_ADDR:http://127.0.0.1:9100}
+##Comunicacion de microservicios y enrutamiento
   cloud:
    gateway:
     routes:
